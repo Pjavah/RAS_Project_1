@@ -5,8 +5,8 @@ img = cv2.imread('./pictures/square18.jpeg')
 
 hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-lower_bound = np.array([0, 220, 150])   
-upper_bound = np.array([14, 255, 200])
+lower_bound = np.array([0, 170, 130])   
+upper_bound = np.array([13, 255, 255])
 # find the colors within the boundaries
 mask = cv2.inRange(hsv, lower_bound, upper_bound)
 
@@ -20,8 +20,10 @@ segmented_img = cv2.bitwise_and(img, img, mask=mask)
 
 contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 output = cv2.drawContours(segmented_img, contours, -1, (0, 0, 255), 3)
+outputS = cv2.resize(output, (960,540)) # resize output image
 # Showing the output
-cv2.imshow("Output", output)
-cv2.imwrite('output.jpeg', output)
+
+cv2.imshow("Output", outputS)
+cv2.imwrite('output.jpeg', outputS)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
