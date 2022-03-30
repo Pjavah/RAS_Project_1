@@ -5,10 +5,14 @@ import numpy as np
 import sys
 
 from sensor_msgs.msg import Image
-from std_msgs.msg import String
-
+from .arucomarkers import markAruco
 
 camList = []
+
+desired_aruco_dictionary = cv2.aruco.DICT_4X4_50
+this_aruco_dictionary = cv2.aruco.Dictionary_get(desired_aruco_dictionary)
+this_aruco_parameters = cv2.aruco.DetectorParameters_create()
+
 
 class CamSubscriber(Node):
     camcounter = 0
@@ -34,8 +38,8 @@ class CamSubscriber(Node):
     
             # Convert ROS Image message to OpenCV2
             cv2_img = self.imgmsg_to_cv2(msg)
-            
-            cv2.imshow("Result",cv2_img)
+            #markAruco(cv2_img)
+            cv2.imshow("Result",markAruco(cv2_img))
             cv2.waitKey(1)
             #cv2.destroyAllWindows()
 

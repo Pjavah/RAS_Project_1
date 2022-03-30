@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'cam_sub = droning_pkg.cam_sub:main'
+            'cam_sub = droning_pkg.cam_sub:main',
+            'camsub_qr = droning_pkg.camsub_qr:main'
         ],
     },
 )
