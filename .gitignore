@@ -1,0 +1,6 @@
+#ignore all shit that aint sources
+/droning_ws/build
+/droning_ws/install
+/droning_ws/log
+/droning_ws/src/droning_ws/test
+/droning_ws/src/droning_ws/resource
