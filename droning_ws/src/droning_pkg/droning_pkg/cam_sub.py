@@ -7,9 +7,10 @@ import sys
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
 
-
+camList = []
 
 class CamSubscriber(Node):
+    camcounter = 0
 #    def __init__(self):
  #       super().__init__('camera_subscriber')
   #      self.subscription = self.create_subscription(
@@ -37,12 +38,16 @@ class CamSubscriber(Node):
 
     def cam_callback(self, msg):
 
-        # Convert ROS Image message to OpenCV2
-        cv2_img = self.imgmsg_to_cv2(msg)
-        
-        cv2.imshow("Result",cv2_img)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        self.camcounter += 1
+        if(self.camcounter % 10 == 0):
+            camList.append(msg)
+    
+            # Convert ROS Image message to OpenCV2
+            cv2_img = self.imgmsg_to_cv2(msg)
+            
+            cv2.imshow("Result",cv2_img)
+            cv2.waitKey(1)
+            #cv2.destroyAllWindows()
 
     def imgmsg_to_cv2(self, img_msg):
         n_channels = len(img_msg.data) // (img_msg.height * img_msg.width)
