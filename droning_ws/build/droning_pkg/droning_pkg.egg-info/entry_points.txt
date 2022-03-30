@@ -1,3 +1,0 @@
-[console_scripts]
-cam_sub = droning_pkg.cam_sub:main
-
