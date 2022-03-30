@@ -1,0 +1,35 @@
+running egg_info
+creating ../../build/droning_pkg/droning_pkg.egg-info
+writing ../../build/droning_pkg/droning_pkg.egg-info/PKG-INFO
+writing dependency_links to ../../build/droning_pkg/droning_pkg.egg-info/dependency_links.txt
+writing entry points to ../../build/droning_pkg/droning_pkg.egg-info/entry_points.txt
+writing requirements to ../../build/droning_pkg/droning_pkg.egg-info/requires.txt
+writing top-level names to ../../build/droning_pkg/droning_pkg.egg-info/top_level.txt
+writing manifest file '../../build/droning_pkg/droning_pkg.egg-info/SOURCES.txt'
+reading manifest file '../../build/droning_pkg/droning_pkg.egg-info/SOURCES.txt'
+writing manifest file '../../build/droning_pkg/droning_pkg.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build
+creating /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build/lib
+creating /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build/lib/droning_pkg
+copying droning_pkg/__init__.py -> /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build/lib/droning_pkg
+copying droning_pkg/cam_sub.py -> /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build/lib/droning_pkg
+running install
+running install_lib
+creating /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg
+copying /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build/lib/droning_pkg/__init__.py -> /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg
+copying /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build/lib/droning_pkg/cam_sub.py -> /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg
+byte-compiling /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg/__init__.py to __init__.cpython-38.pyc
+byte-compiling /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg/cam_sub.py to cam_sub.cpython-38.pyc
+running install_data
+creating /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/share/ament_index
+creating /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/share/ament_index/resource_index
+creating /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/share/ament_index/resource_index/packages
+copying resource/droning_pkg -> /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/share/ament_index/resource_index/packages
+copying package.xml -> /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/share/droning_pkg
+running install_egg_info
+Copying ../../build/droning_pkg/droning_pkg.egg-info to /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg-0.0.0-py3.8.egg-info
+running install_scripts
+Installing cam_sub script to /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/droning_pkg
+writing list of installed files to '/home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/install.log'
