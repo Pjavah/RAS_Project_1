@@ -6,7 +6,7 @@ desired_aruco_dictionary = cv2.aruco.DICT_4X4_50
 this_aruco_dictionary = cv2.aruco.Dictionary_get(desired_aruco_dictionary)
 this_aruco_parameters = cv2.aruco.DetectorParameters_create()
 
-#frame = cv2.imread('./pictures/aruco1.jpeg')
+# frame = cv2.imread('droning_ws\\src\\droning_pkg\\droning_pkg\\aruco1.jpeg')
      
 
        
@@ -23,6 +23,8 @@ def markAruco(frame):
     frame_height, frame_width, channels = frame.shape
     frame_center = int(frame_width / 2.0), int(frame_height / 2.0)
     position = []
+    qr_distance_points = []
+    qr_distance = 0
     if len(corners) > 0:
         # Flatten the ArUco IDs list
         ids = ids.flatten()
@@ -48,6 +50,11 @@ def markAruco(frame):
             # Calculate and draw the center of the ArUco marker
             center_x = int((top_left[0] + bottom_right[0]) / 2.0)
             center_y = int((top_left[1] + bottom_right[1]) / 2.0)
+
+            if (marker_id == 1 or marker_id == 2):
+                qr_distance_points.append(center_x)
+                qr_distance_points.append(center_y)
+            print(qr_distance_points)
             cv2.circle(frame, (center_x, center_y), 4, (0, 0, 255), -1)
 
             if qr_left == 0:
@@ -81,10 +88,22 @@ def markAruco(frame):
     cv2.line(frame, (qr_center), (frame_center), (255, 0, 0), thickness=3, lineType=8)
     distance = str(int(math.hypot(qr_center[0] - frame_center[0], qr_center[1] - frame_center[1])))
     cv2.putText(frame,distance,(qr_center[0],qr_center[1]+frame_center[1]//20), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
-    position = (int(qr_center[0] - frame_center[0], qr_center[1] - frame_center[1]))
+
+    # Laskee miten paljon pitäisi liikkua sivulle ja ylös
+    position = (qr_center[0] - frame_center[0], frame_center[1] - qr_center[1])
+    cv2.putText(frame,"Horizontal: " + str(position[0]),(10,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
+    cv2.putText(frame,"Vertical: " + str(position[1]),(10,100), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
+
+    # Lasketaan qr merkkien etäisyys
+    qr_distance = math.hypot(qr_distance_points[0] - qr_distance_points[2], qr_distance_points[1] - qr_distance_points[3]) / frame_height
+    cv2.putText(frame,"Qr koodien osuus korkeudesta: ",(10,150), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
+    cv2.putText(frame,str(qr_distance),(10,200), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
+
     # Display the resulting frame
-    #cv2.imshow('frame',frame)
-    #cv2.imwrite('output.jpeg', frame)
-    #cv2.waitKey(1)
-    #cv2.destroyAllWindows()
-    return frame, position
+    cv2.imshow('frame',frame)
+    cv2.imwrite('output.jpeg', frame)
+    cv2.waitKey(1)
+    cv2.destroyAllWindows()
+    return frame, position, qr_distance
+
+# markAruco(frame)
