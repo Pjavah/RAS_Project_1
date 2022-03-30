@@ -17,6 +17,7 @@ mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
 
 # Segment only the detected region
 segmented_img = cv2.bitwise_and(img, img, mask=mask)
+print("Moro!")
 
 contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 output = cv2.drawContours(segmented_img, contours, -1, (0, 0, 255), 3)
