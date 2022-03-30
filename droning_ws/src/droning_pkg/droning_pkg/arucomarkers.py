@@ -22,6 +22,7 @@ def markAruco(frame):
     qr_left = qr_right = qr_top = qr_bottom = 0
     frame_height, frame_width, channels = frame.shape
     frame_center = int(frame_width / 2.0), int(frame_height / 2.0)
+    position = []
     if len(corners) > 0:
         # Flatten the ArUco IDs list
         ids = ids.flatten()
@@ -80,9 +81,10 @@ def markAruco(frame):
     cv2.line(frame, (qr_center), (frame_center), (255, 0, 0), thickness=3, lineType=8)
     distance = str(int(math.hypot(qr_center[0] - frame_center[0], qr_center[1] - frame_center[1])))
     cv2.putText(frame,distance,(qr_center[0],qr_center[1]+frame_center[1]//20), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
+    position = (int(qr_center[0] - frame_center[0], qr_center[1] - frame_center[1]))
     # Display the resulting frame
     #cv2.imshow('frame',frame)
     #cv2.imwrite('output.jpeg', frame)
     #cv2.waitKey(1)
     #cv2.destroyAllWindows()
-    return frame
+    return frame, position
