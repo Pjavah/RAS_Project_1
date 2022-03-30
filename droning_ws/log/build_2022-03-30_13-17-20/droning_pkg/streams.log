@@ -1,0 +1,24 @@
+[0.724s] Invoking command in '/home/kalle/Documents/Tello/RAS_Project_1/droning_ws/src/droning_pkg': PYTHONPATH=/home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/droning_pkg build --build-base /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build install --prefix /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg --record /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/install.log --single-version-externally-managed
+[0.963s] running egg_info
+[0.964s] writing ../../build/droning_pkg/droning_pkg.egg-info/PKG-INFO
+[0.964s] writing dependency_links to ../../build/droning_pkg/droning_pkg.egg-info/dependency_links.txt
+[0.964s] writing entry points to ../../build/droning_pkg/droning_pkg.egg-info/entry_points.txt
+[0.964s] writing requirements to ../../build/droning_pkg/droning_pkg.egg-info/requires.txt
+[0.964s] writing top-level names to ../../build/droning_pkg/droning_pkg.egg-info/top_level.txt
+[1.000s] reading manifest file '../../build/droning_pkg/droning_pkg.egg-info/SOURCES.txt'
+[1.000s] writing manifest file '../../build/droning_pkg/droning_pkg.egg-info/SOURCES.txt'
+[1.000s] running build
+[1.000s] running build_py
+[1.001s] copying droning_pkg/cam_sub.py -> /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build/lib/droning_pkg
+[1.001s] running install
+[1.002s] running install_lib
+[1.003s] copying /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build/lib/droning_pkg/cam_sub.py -> /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg
+[1.004s] byte-compiling /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg/cam_sub.py to cam_sub.cpython-38.pyc
+[1.005s] running install_data
+[1.006s] running install_egg_info
+[1.007s] removing '/home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg-0.0.0-py3.8.egg-info' (and everything under it)
+[1.007s] Copying ../../build/droning_pkg/droning_pkg.egg-info to /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages/droning_pkg-0.0.0-py3.8.egg-info
+[1.008s] running install_scripts
+[1.026s] Installing cam_sub script to /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/droning_pkg
+[1.026s] writing list of installed files to '/home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/install.log'
+[1.049s] Invoked command in '/home/kalle/Documents/Tello/RAS_Project_1/droning_ws/src/droning_pkg' returned '0': PYTHONPATH=/home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/droning_pkg build --build-base /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/build install --prefix /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/install/droning_pkg --record /home/kalle/Documents/Tello/RAS_Project_1/droning_ws/build/droning_pkg/install.log --single-version-externally-managed
