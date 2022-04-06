@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import sys
 
+from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
 from arucomarkers import markAruco
 
@@ -22,15 +23,11 @@ class CamSubscriber(Node):
         
         self.cnt = 0
         #self.shape.array = []
-        self.image_sub = self.create_subscription(
-            Image, 
-            #'/image_raw', 
-            "/camera",
-            self.cam_callback, 
-            10)
+        self.image_sub = self.create_subscription(Image, "/camera",self.cam_callback, 10)
+        self.cmdvel_publisher = self.create_publisher(Twist, '/control', 10)   #'/cmd_vel
 
 
-    def cam_callback(self, msg):
+    def cam_callback(self, msg):                                                             
 
         self.camcounter += 1
         if(self.camcounter % 5 == 0):
@@ -43,6 +40,37 @@ class CamSubscriber(Node):
             cv2.imshow("Result",frame)
             cv2.waitKey(1)
             #cv2.destroyAllWindows()
+
+        
+            print(position)
+
+            #Moving towards the center
+            if(0 > position[0] > -480):
+                msg = Twist()
+                msg.linear.x = -20.0
+                self.cmdvel_publisher.publish(msg)
+            if(0 < position[0]):
+                msg = Twist()
+                msg.linear.x = 20.0
+                self.cmdvel_publisher.publish(msg)
+            if(0 < position[1] < 360):
+                msg = Twist()
+                msg.linear.z = 20.0
+                self.cmdvel_publisher.publish(msg)
+            if(0 > position[1]):
+                msg = Twist()
+                msg.linear.z = -20.0
+                self.cmdvel_publisher.publish(msg)
+            if(qr_distance < 0.8 and abs.position[0]<50 and abs.position[1]<50):
+                msg = Twist()
+                msg.linear.y = 10.0
+                self.cmdvel_publisher.publish(msg)
+            else:
+                msg = Twist()
+                msg.linear.z = 0.0
+                msg.linear.x = 0.0
+                msg.linear.y = 0.0
+                self.cmdvel_publisher.publish(msg)
 
     def imgmsg_to_cv2(self, img_msg):
         n_channels = len(img_msg.data) // (img_msg.height * img_msg.width)
