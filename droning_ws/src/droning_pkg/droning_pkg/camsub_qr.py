@@ -5,7 +5,7 @@ import numpy as np
 import sys
 
 from sensor_msgs.msg import Image
-from .arucomarkers import markAruco
+from arucomarkers import markAruco
 
 camList = []
 
@@ -33,7 +33,7 @@ class CamSubscriber(Node):
     def cam_callback(self, msg):
 
         self.camcounter += 1
-        if(self.camcounter % 10 == 0):
+        if(self.camcounter % 5 == 0):
             camList.append(msg)
     
             # Convert ROS Image message to OpenCV2

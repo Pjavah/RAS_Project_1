@@ -104,7 +104,6 @@ def markAruco(frame):
     #cv2.imwrite('output.jpeg', frame)
     #cv2.waitKey(1)
     #cv2.destroyAllWindows()
-    return frame
-    #, position, qr_distance
+    return frame, position, qr_distance
 
 # markAruco(frame)
