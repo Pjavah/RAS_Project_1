@@ -51,10 +51,12 @@ def markAruco(frame):
             center_x = int((top_left[0] + bottom_right[0]) / 2.0)
             center_y = int((top_left[1] + bottom_right[1]) / 2.0)
 
-            if (marker_id == 1 or marker_id == 2):
-                qr_distance_points.append(center_x)
-                qr_distance_points.append(center_y)
-            print(qr_distance_points)
+            if (marker_id == 1):
+                qr_distance_points[0] = center_x
+                qr_distance_points[1] = center_y
+            if (marker_id == 2):
+                qr_distance_points[2] = center_x
+                qr_distance_points[3] = center_y
             cv2.circle(frame, (center_x, center_y), 4, (0, 0, 255), -1)
 
             if qr_left == 0:
@@ -94,10 +96,11 @@ def markAruco(frame):
     cv2.putText(frame,"Horizontal: " + str(position[0]),(10,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
     cv2.putText(frame,"Vertical: " + str(position[1]),(10,100), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
 
-    # Lasketaan qr merkkien etäisyys
-    qr_distance = math.hypot(qr_distance_points[0] - qr_distance_points[2], qr_distance_points[1] - qr_distance_points[3]) / frame_height
-    cv2.putText(frame,"Qr koodien osuus korkeudesta: ",(10,150), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
-    cv2.putText(frame,str(qr_distance),(10,200), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
+    if (len(qr_distance_points) == 4):
+        # Lasketaan qr merkkien etäisyys
+        qr_distance = math.hypot(qr_distance_points[0] - qr_distance_points[2], qr_distance_points[1] - qr_distance_points[3]) / frame_height
+        cv2.putText(frame,"Qr koodien osuus korkeudesta: ",(10,150), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
+        cv2.putText(frame,str(qr_distance),(10,200), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
 
     # Display the resulting frame
     cv2.imshow('frame',frame)
