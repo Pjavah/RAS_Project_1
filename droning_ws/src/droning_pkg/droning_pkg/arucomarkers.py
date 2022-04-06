@@ -89,7 +89,7 @@ def markAruco(frame):
     cv2.putText(frame,distance,(qr_center[0],qr_center[1]+frame_center[1]//20), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
 
     # Laskee miten paljon pitäisi liikkua sivulle ja ylös
-    position = (qr_center[0] - frame_center[0], frame_center[1] - qr_center[1])
+    position = [int(qr_center[0] - frame_center[0]), int(frame_center[1] - qr_center[1])]
     cv2.putText(frame,"Horizontal: " + str(position[0]),(10,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
     cv2.putText(frame,"Vertical: " + str(position[1]),(10,100), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
 
