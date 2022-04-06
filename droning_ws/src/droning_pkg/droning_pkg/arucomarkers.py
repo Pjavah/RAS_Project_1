@@ -6,10 +6,7 @@ desired_aruco_dictionary = cv2.aruco.DICT_4X4_50
 this_aruco_dictionary = cv2.aruco.Dictionary_get(desired_aruco_dictionary)
 this_aruco_parameters = cv2.aruco.DetectorParameters_create()
 
-# frame = cv2.imread('droning_ws\\src\\droning_pkg\\droning_pkg\\aruco1.jpeg')
-     
-
-       
+# frame = cv2.imread('.\\pictures\\aruco1.jpeg')
 
 def markAruco(frame):
 
@@ -23,7 +20,7 @@ def markAruco(frame):
     frame_height, frame_width, channels = frame.shape
     frame_center = int(frame_width / 2.0), int(frame_height / 2.0)
     position = []
-    qr_distance_points = []
+    qr_distance_points = [0,0,0,0]
     qr_distance = 0
     if len(corners) > 0:
         # Flatten the ArUco IDs list
@@ -96,7 +93,7 @@ def markAruco(frame):
     cv2.putText(frame,"Horizontal: " + str(position[0]),(10,50), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
     cv2.putText(frame,"Vertical: " + str(position[1]),(10,100), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
 
-    if (len(qr_distance_points) == 4):
+    if (qr_distance_points[0] != 0 and qr_distance_points[1] != 0 and qr_distance_points[2] != 0 and qr_distance_points[3] != 0):
         # Lasketaan qr merkkien etäisyys
         qr_distance = math.hypot(qr_distance_points[0] - qr_distance_points[2], qr_distance_points[1] - qr_distance_points[3]) / frame_height
         cv2.putText(frame,"Qr koodien osuus korkeudesta: ",(10,150), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
