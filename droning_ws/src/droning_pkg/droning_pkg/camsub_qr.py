@@ -39,7 +39,8 @@ class CamSubscriber(Node):
             # Convert ROS Image message to OpenCV2
             cv2_img = self.imgmsg_to_cv2(msg)
             #markAruco(cv2_img)
-            cv2.imshow("Result",markAruco(cv2_img))
+            frame, position, qr_distance = markAruco(cv2_img)
+            cv2.imshow("Result",frame)
             cv2.waitKey(1)
             #cv2.destroyAllWindows()
 
