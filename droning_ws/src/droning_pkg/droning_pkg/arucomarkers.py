@@ -100,10 +100,10 @@ def markAruco(frame):
         cv2.putText(frame,str(qr_distance),(10,200), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2,cv2.LINE_AA)
 
     # Display the resulting frame
-    cv2.imshow('frame',frame)
-    cv2.imwrite('output.jpeg', frame)
-    cv2.waitKey(1)
-    cv2.destroyAllWindows()
+    #cv2.imshow('frame',frame)
+    #cv2.imwrite('output.jpeg', frame)
+    #cv2.waitKey(1)
+    #cv2.destroyAllWindows()
     return frame, position, qr_distance
 
 # markAruco(frame)
