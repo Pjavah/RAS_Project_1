@@ -46,24 +46,28 @@ class CamSubscriber(Node):
 
             #Moving towards the center
             if(0 > position[0] > -480):
+                print("äxä 1")
                 msg = Twist()
                 msg.linear.x = -20.0
                 self.cmdvel_publisher.publish(msg)
             if(0 < position[0]):
+                print("äxä kaks")
                 msg = Twist()
                 msg.linear.x = 20.0
                 self.cmdvel_publisher.publish(msg)
             if(0 < position[1] < 360):
+                print("vertikaali")
                 msg = Twist()
                 msg.linear.z = 20.0
                 self.cmdvel_publisher.publish(msg)
             if(0 > position[1]):
+                print("vertikaali 2")
                 msg = Twist()
                 msg.linear.z = -20.0
                 self.cmdvel_publisher.publish(msg)
-            if(qr_distance < 0.8 and abs.position[0]<50 and abs.position[1]<50):
+            if(qr_distance < 0.8 and abs(position[0])<100 and abs(position[1])<100):
                 msg = Twist()
-                msg.linear.y = 10.0
+                msg.linear.y = 20.0
                 self.cmdvel_publisher.publish(msg)
             else:
                 msg = Twist()
