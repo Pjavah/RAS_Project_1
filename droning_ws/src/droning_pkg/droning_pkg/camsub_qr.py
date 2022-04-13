@@ -44,6 +44,11 @@ class CamSubscriber(Node):
             cv2.waitKey(1)
             #cv2.destroyAllWindows()
 
+            if(qr_distance > 0.8 and abs(position[0]) < 50 and abs(position[1]) < 50):
+                print("forward!!")
+
+            
+
     def imgmsg_to_cv2(self, img_msg):
         n_channels = len(img_msg.data) // (img_msg.height * img_msg.width)
         dtype = np.uint8
