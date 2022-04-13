@@ -3,6 +3,7 @@ from rclpy.node import Node
 import cv2
 import numpy as np
 import sys
+import time
 
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
@@ -45,36 +46,48 @@ class CamSubscriber(Node):
             print(position)
 
             #Moving towards the center
-            if(0 > position[0] > -480):
-                print("äxä 1")
+            if(-30 > position[0] > -480):
+                print("moving X to center")
                 msg = Twist()
-                msg.linear.x = -20.0
+                msg.linear.x = -10.0
                 self.cmdvel_publisher.publish(msg)
-            if(0 < position[0]):
-                print("äxä kaks")
+            if(30 < position[0]):
+                print("Moving X to center from negative")
                 msg = Twist()
-                msg.linear.x = 20.0
+                msg.linear.x = 10.0
                 self.cmdvel_publisher.publish(msg)
-            if(0 < position[1] < 360):
-                print("vertikaali")
+            if(100 < position[1] < 360):
+                print("Going vertically up")
                 msg = Twist()
-                msg.linear.z = 20.0
+                msg.linear.z = 15.0
                 self.cmdvel_publisher.publish(msg)
-            if(0 > position[1]):
-                print("vertikaali 2")
+            if(50 > position[1]):
+                print("Going vertically down")
                 msg = Twist()
-                msg.linear.z = -20.0
+                msg.linear.z = -15.0
                 self.cmdvel_publisher.publish(msg)
-            if(qr_distance < 0.8 and abs(position[0])<100 and abs(position[1])<100):
+            if(qr_distance < 0.8 and abs(position[0])<100 and abs(position[1])<190):
+                print("Going forward closer to gate!")
                 msg = Twist()
-                msg.linear.y = 20.0
+                msg.linear.y = 15.0
                 self.cmdvel_publisher.publish(msg)
-            else:
+
+            if(qr_distance > 0.75 and abs(position[0])<100 and abs(position[1])<190):
                 msg = Twist()
-                msg.linear.z = 0.0
-                msg.linear.x = 0.0
-                msg.linear.y = 0.0
-                self.cmdvel_publisher.publish(msg)
+                msg.linear.y = 22.0
+                end_time = time.time()+4
+                while(time.time() < end_time):
+                    self.cmdvel_publisher.publish(msg)
+                    print("Going through gate!")
+                    time.sleep(0.2)
+
+            #else:
+             #   print("found nothing?")
+              #  msg = Twist()
+               # msg.linear.z = 0.0
+                #msg.linear.x = 0.0
+               # msg.linear.y = 0.0
+               # self.cmdvel_publisher.publish(msg)
 
     def imgmsg_to_cv2(self, img_msg):
         n_channels = len(img_msg.data) // (img_msg.height * img_msg.width)
