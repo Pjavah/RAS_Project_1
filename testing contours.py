@@ -2,7 +2,9 @@ import cv2
  
 # Read image for contour detection
 input_image = cv2.imread('./pictures/square4.jpeg')
- 
+
+#min 60,130,90
+#max 110,255,170
 # Make a copy to draw bounding box
 input_image_cpy = input_image.copy()
  

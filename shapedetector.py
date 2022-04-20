@@ -29,9 +29,8 @@ class ShapeDetector:
         # if the shape is a pentagon, it will have 5 vertices
 		#elif len(approx) == 5:
 		#	shape = "pentagon"
-#
-		## otherwise, we assume the shape is a circle
-		#else:
-		#	shape = "circle"
+
+		if ( 3 > len(approx) <5):
+			shape = "circle"
 		# return the name of the shape
 		return shape        
