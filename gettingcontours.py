@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 
 
+
 def contourSquares(img):
     #img = cv2.imread('./pictures/square17.jpeg')
     img = cv2.resize(img, (0, 0), None, .50, .50)
@@ -24,8 +25,8 @@ def contourSquares(img):
 
     hsv = cv2.cvtColor(subtract, cv2.COLOR_BGR2HSV)
 
-    lower_bound = np.array([0, 220, 150])   
-    upper_bound = np.array([11, 255, 255])
+    lower_bound = np.array([20, 150, 170])
+    upper_bound = np.array([55, 250, 215])
     # find the colors within the boundaries
     mask = cv2.inRange(hsv, lower_bound, upper_bound)
 
@@ -74,3 +75,6 @@ def contourSquares(img):
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
+
+contourSquares(cv2.imread('green.jpeg'))

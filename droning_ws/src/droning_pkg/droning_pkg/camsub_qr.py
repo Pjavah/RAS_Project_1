@@ -57,7 +57,6 @@ class CamSubscriber(Node):
                 print("starting position")
                 self.start=0
 
-
             #Moving towards the center
             if(-30 > position[0] > -480):
                 print("moving X to center")
@@ -98,8 +97,15 @@ class CamSubscriber(Node):
 
             if(self.through==1):
                 print("And now landing?")
+                msg1 = Twist()
+                msg1.linear.z = 0.0
+                msg1.linear.x = 0.0
+                msg1.linear.y = 0.0
+                self.cmdvel_publisher.publish(msg1)
                 msg = Empty()
                 self.land_publisher.publish(msg)
+                #print("found nothing?")
+                
 
 
             #else:
