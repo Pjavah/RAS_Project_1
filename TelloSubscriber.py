@@ -12,67 +12,54 @@ from geometry_msgs.msg import Twist
 import matplotlib.pyplot as plt
 
 
-
 class TelloCamSubscriber(Node):
 
     def __init__(self):
-        super().__init__('image_listener')
-        
+        super().__init__('TelloCamSubscriber')
+
         self.cnt = 0
-        self.shape.array = []
+        #self.shape.array = []    Tarkista tarvitaanko tätä
+        self.image_sub = self.create_subscription(Image, "/camera", self.shape_cam_callback, 10) 
 
-        self.image_sub = self.create_subscription(
-            Image, 
-            #'/image_raw', 
-            "/camera",
-            self.shape_cam_callback, 
-            10)
+        #When this is needed
+        #self.shape_publisher = ShapePublisher()
 
-        self.shape_publisher = ShapePublisher()
+        #"/cmd_vel", #or control_vel. If control multiply by 100. 
+        self.drone_publisher = self.create_publisher(Twist, "/control",10)
 
-
-        self.drone_publisher = self.create_publisher( #publishes to /cmd_vel to publish the commands.
-            Twist,
-            #"/cmd_vel", #or control_vel. If control multiply by 100. 
-            "/control",
-            10
-        )
-
-        self.drone_publisher
+        #self.drone_publisher
         #start by rotating
-        
-        
-        
-
-
+    
     def shape_cam_callback(self, msg):
-
+        
         # Convert ROS Image message to OpenCV2
         cv2_img = self.imgmsg_to_cv2(msg)
+
+        # Define the boundaries for the colour detection
+        lower_bound = np.array([60, 130, 90])   
+        upper_bound = np.array([110, 255, 170])
+
+        # Find the colors within the boundaries
+        mask = cv2.inRange(cv2_img, lower_bound, upper_bound)
+        output = cv2.bitwise_and(cv2_img, cv2_img, mask = mask)
         
-        hsv = cv2.cvtColor(cv2_img, cv2.COLOR_BGR2HSV) 
-
-        lower_bound = np.array([0, 170, 130])   
-        upper_bound = np.array([13, 255, 255])
-
-        # find the colors within the boundaries
-        mask = cv2.inRange(hsv, lower_bound, upper_bound)
-
-        kernel = np.ones((7,7),np.uint8)
-        # Remove unnecessary noise from mask
-        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
-
-        # Segment only the detected region
-        segmented_img = cv2.bitwise_and(cv2_img, cv2_img, mask=mask)
-
-        contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        output = cv2.drawContours(segmented_img, contours, -1, (0, 0, 255), 3)
-        outputS = cv2.resize(output, (960,540)) # resize output image
-
-        cv2.imshow("Output", outputS)
-        cv2.imwrite('output.jpeg', outputS)
-        cv2.waitKey(0)
+        #Tarkista että eihän näitä käytetty
+        #resized = imutils.resize(output, width=300) 
+        #gray = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY) 
+        #cnts = cv2.findContours(gray.copy(), cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE) 
+        #cnts = imutils.grab_contours(cnts)
+        cv2.imwrite('camera_image_1.jpeg'.format(self.cnt), output)
+#
+        ## Segment only the detected region
+        #segmented_img = cv2.bitwise_and(cv2_img, cv2_img, mask=mask)
+#
+        #contours, hierarchy = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        #output = cv2.drawContours(segmented_img, contours, -1, (0, 0, 255), 3)
+        #outputS = cv2.resize(output, (960,540)) # resize output image
+#
+        cv2.imshow("Output", cv2_img)
+        #cv2.imwrite('output.jpeg', outputS)
+        cv2.waitKey(1)
         cv2.destroyAllWindows()
 
 #Size chart
@@ -82,42 +69,41 @@ class TelloCamSubscriber(Node):
 # 1m 20000 
 #        
         
+        #detect both circle and square 
+
         #here we determine the moves the drone makes
-
-        if self.face_size < 6000 and (len(faces) == 1):
-            #move forwards
-            msg = Twist()
-            Ly = 0.15*100 #times hundred if if controll
-            msg.linear.y = Ly
-            self.drone_publisher.publish(msg)
-            
-            
-        
-        elif self.face_size > 17000 and (len(faces) == 1):
-            #move backwards
-            msg = Twist()
-            Ly = -0.15*100 #times hundred if if controll
-            msg.linear.y = Ly
-            self.drone_publisher.publish(msg)
-            
-
-        elif(len(faces) != 1):
-            #drone rotates if more than one face or no faces are detected
-            msg = Twist()
-            Az = 0.25*100 #times hundred if if controll
-            msg.angular.z = Az
-            self.drone_publisher.publish(msg)
-
-        elif():
-            # drone positions vertically to match the height the gate is
-            msg.Twist()
-            Lx = 0.15*100
-            msg.linear.x = Lx
-            self.drone_publisher.publish(msg)
-
-
-        
-# THIS IS JUST THE IMAGE CONVERSION
+#
+#        if self.face_size < 6000 and (len(faces) == 1):
+#            #move forwards
+#            msg = Twist()
+#            Ly = 0.15*100 #times hundred if if controll
+#            msg.linear.y = Ly
+#            self.drone_publisher.publish(msg)
+#            
+#        elif self.face_size > 17000 and (len(faces) == 1):
+#            #move backwards
+#            msg = Twist()
+#            Ly = -0.15*100 #times hundred if if controll
+#            msg.linear.y = Ly
+#            self.drone_publisher.publish(msg)
+#            
+#
+#        elif(len(faces) != 1):
+#            #drone rotates if more than one face or no faces are detected
+#            msg = Twist()
+#            Az = 0.25*100 #times hundred if if controll
+#            msg.angular.z = Az
+#            self.drone_publisher.publish(msg)
+#
+#        elif():
+#            # drone positions vertically to match the height the gate is
+#            msg.Twist()
+#            Lx = 0.15*100
+#            msg.linear.x = Lx
+#            self.drone_publisher.publish(msg)
+#
+#        
+## THIS IS JUST THE IMAGE CONVERSION
 
     def imgmsg_to_cv2(self, img_msg):
         n_channels = len(img_msg.data) // (img_msg.height * img_msg.width)
@@ -141,29 +127,25 @@ class TelloCamSubscriber(Node):
 
 # THIS PUBLISHES A MESSAGE WHEN THE DRONE FINDS A SHAPE (square)
 
-class ShapePublisher(Node):
-
-    def __init__(self):
-        super().__init__("Shape_publisher")
-        self.publisher_ = self.create_publisher(String, "/shape_found", 10)
-        self.i = 0
-
-    def publish(self):
-        msg = String()
-        msg.data = "Face has been found!" 
-        self.publisher_.publish(msg)
-        self.i += 1
+#class ShapePublisher(Node):
+#
+#    def __init__(self):
+#        super().__init__("Shape_publisher")
+#        self.publisher_ = self.create_publisher(String, "/shape_found", 10)
+#        self.i = 0
+#
+#    def publish(self):
+#        msg = String()
+#        msg.data = "Face has been found!" 
+#        self.publisher_.publish(msg)
+#        self.i += 1
         
-
-
-
 def main():
     rclpy.init()
     cam_subscriber = TelloCamSubscriber()
 
     # Spin until ctrl + c
     rclpy.spin(cam_subscriber)
-  
 
     cam_subscriber.destroy_node()
     rclpy.shutdown()

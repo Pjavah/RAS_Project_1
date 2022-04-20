@@ -7,6 +7,7 @@ import time
 
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
+from std_msgs.msg import Empty
 from arucomarkers import markAruco
 
 camList = []
@@ -26,6 +27,7 @@ class CamSubscriber(Node):
         #self.shape.array = []
         self.image_sub = self.create_subscription(Image, "/camera",self.cam_callback, 10)
         self.cmdvel_publisher = self.create_publisher(Twist, '/control', 10)   #'/cmd_vel
+        self.land_publisher = self.create_publisher(Empty, '/land', 10)
 
 
     def cam_callback(self, msg):                                                             
@@ -80,6 +82,14 @@ class CamSubscriber(Node):
                     self.cmdvel_publisher.publish(msg)
                     print("Going through gate!")
                     time.sleep(0.2)
+                    
+                through = 1
+
+            if(through):
+                print("And now landing?")
+                msg = Empty()
+                self.land_publisher.publish(msg)
+
 
             #else:
              #   print("found nothing?")
