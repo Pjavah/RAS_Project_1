@@ -17,8 +17,10 @@ this_aruco_dictionary = cv2.aruco.Dictionary_get(desired_aruco_dictionary)
 this_aruco_parameters = cv2.aruco.DetectorParameters_create()
 
 
+
 class CamSubscriber(Node):
     camcounter = 0
+    
 
     def __init__(self):
         super().__init__('image_listener')
@@ -28,7 +30,8 @@ class CamSubscriber(Node):
         self.image_sub = self.create_subscription(Image, "/camera",self.cam_callback, 10)
         self.cmdvel_publisher = self.create_publisher(Twist, '/control', 10)   #'/cmd_vel
         self.land_publisher = self.create_publisher(Empty, '/land', 10)
-
+        self.through = 0
+        self.start = 1
 
     def cam_callback(self, msg):                                                             
 
@@ -47,6 +50,14 @@ class CamSubscriber(Node):
         
             print(position)
 
+            if(self.start):
+                msg = Twist()
+                msg.linear.z = 15.0
+                self.cmdvel_publisher.publish(msg)
+                print("starting position")
+                self.start=0
+
+
             #Moving towards the center
             if(-30 > position[0] > -480):
                 print("moving X to center")
@@ -58,12 +69,12 @@ class CamSubscriber(Node):
                 msg = Twist()
                 msg.linear.x = 10.0
                 self.cmdvel_publisher.publish(msg)
-            if(100 < position[1] < 360):
+            if(150 < position[1] < 360):
                 print("Going vertically up")
                 msg = Twist()
                 msg.linear.z = 15.0
                 self.cmdvel_publisher.publish(msg)
-            if(50 > position[1]):
+            if(100 > position[1]):
                 print("Going vertically down")
                 msg = Twist()
                 msg.linear.z = -15.0
@@ -83,9 +94,9 @@ class CamSubscriber(Node):
                     print("Going through gate!")
                     time.sleep(0.2)
                     
-                through = 1
+                self.through = 1
 
-            if(through):
+            if(self.through==1):
                 print("And now landing?")
                 msg = Empty()
                 self.land_publisher.publish(msg)
