@@ -11,3 +11,7 @@ GIT CHEATS:
 <div>git pull </div>
 <div>git commit -m "commit message" </div>
 <div>git push </div>
+
+TAKEOFF COMMAND
+ros2 topic pub /takeoff std_msgs/Empty --once
+ros2 topic pub /land std_msgs/Empty --once

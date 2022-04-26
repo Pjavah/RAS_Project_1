@@ -53,43 +53,55 @@ class CamSubscriber(Node):
             print(position)
 
             if(self.start):
+                end_time = time.time()+12
+                msg = Twist()
+                msg.linear.z = 15.0
+                print("starting position")
+                self.start=0
+                while(time.time() < end_time):
+                    self.cmdvel_publisher.publish(msg)
+                    print("UPUPUP!")
+                    time.sleep(0.2)
+
+            if(position == [0,0]):
+                print("can't see nuffin, going up")
                 msg = Twist()
                 msg.linear.z = 15.0
                 self.cmdvel_publisher.publish(msg)
-                print("starting position")
-                self.start=0
 
             #Moving towards the center
-            if(30 > position[0] > -480):
+            elif(-30 > position[0] > -480):
                 print("moving X to center")
                 msg = Twist()
                 msg.linear.x = -10.0
                 self.cmdvel_publisher.publish(msg)
-            if(30 < position[0]):
+            elif(30 < position[0]):
                 print("Moving X to center from negative")
                 msg = Twist()
                 msg.linear.x = 10.0
                 self.cmdvel_publisher.publish(msg)
-            if(150 < position[1] < 360):
+            elif(100 < position[1] < 360):
                 print("Going vertically up")
                 msg = Twist()
                 msg.linear.z = 15.0
                 self.cmdvel_publisher.publish(msg)
-            if(100 > position[1]):
+            elif(50 > position[1]):
                 print("Going vertically down")
                 msg = Twist()
                 msg.linear.z = -15.0
                 self.cmdvel_publisher.publish(msg)
-            if(qr_distance < 0.8 and abs(position[0])<100 and abs(position[1])<190):
+            elif(qr_distance < 0.8 and abs(position[0])<100 and abs(position[1])<190):
                 print("Going forward closer to gate!")
                 msg = Twist()
                 msg.linear.y = 15.0
                 self.cmdvel_publisher.publish(msg)
 
-            if(qr_distance > 0.75 and abs(position[0])<100 and abs(position[1])<190):
+            print(qr_distance)
+
+            if(qr_distance > 0.50 and abs(position[0])<100 and abs(position[1])<190):
                 msg = Twist()
                 msg.linear.y = 22.0
-                end_time = time.time()+4
+                end_time = time.time()+7
                 while(time.time() < end_time):
                     self.cmdvel_publisher.publish(msg)
                     print("Going through gate!")
