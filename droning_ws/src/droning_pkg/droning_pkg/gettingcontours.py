@@ -101,16 +101,15 @@ def contourSquares(img):
 
 
 
-    #while True:
-#
-    #
-    #    cv2.imshow("rectangles", drawing)
-    #    cv2.imshow("original", output)
-#
-    #    if cv2.waitKey(1) & 0xFF == ord('q'):
-    #        break
+    while True:
+    
+        cv2.imshow("rectangles", drawing)
+        cv2.imshow("original", output)
+
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
     return drawing, position, relative_size
 
 
-#contourSquares(cv2.imread('green.jpeg'))
+contourSquares(cv2.imread('./fotos/foto2.jpeg'))
