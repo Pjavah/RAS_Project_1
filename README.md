@@ -7,7 +7,7 @@ Project by Patrik Vahala, Aleksi Eskola, Helena Lähdesniemi and Kalle Hautamäk
 <div> Important files are under droning_ws/src/droning_pkg/droning_pkg/. It goes a bit deep, but there are the files used in the project and demonstrations.</div>
 
 
-<div></div>
+<div>-------------------------------------------------------------------------------------------------------------------------</div>
 
 <div></div>
 
