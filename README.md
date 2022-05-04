@@ -4,10 +4,12 @@ Our groups repository for the Robotics and Autonomous Systems project 1.
 Project by Patrik Vahala, Aleksi Eskola, Helena Lähdesniemi and Kalle Hautamäki.
 
 
-<div> Important files are under droning_ws directory. It goes a bit deep, but there are the files used in the project and demonstrations.</div>
+<div> Important files are under droning_ws/src/droning_pkg/droning_pkg/. It goes a bit deep, but there are the files used in the project and demonstrations.</div>
 
 
+<div></div>
 
+<div></div>
 
 
 
